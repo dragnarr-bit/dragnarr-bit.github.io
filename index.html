@@ -41,41 +41,36 @@
       line-height: 1.6;
     }
 
-.photos {
-  position: relative;
-  width: 100%;
-  max-width: 400px; /* Narrower for vertical aspect */
-  aspect-ratio: 3 / 4; /* Vertical ratio */
-  margin: 30px auto;
-  overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  background-color: #ffffff;
+    .photos {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 3 / 4;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .photos img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-color: #fff;
+    }
 
-
-.photos img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Zooms and crops sides */
-  object-position: center; /* Keeps subject centered */
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  background-color: #fff;
-}
-
-
-.photos img.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-
+    .photos img.active {
+      opacity: 1;
+      z-index: 1;
+    }
 
     .music-player {
       margin: 40px auto;
@@ -90,30 +85,30 @@
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
     }
 
-  @media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
 
-  .counter {
-    font-size: 1rem;
-  }
+      .counter {
+        font-size: 1rem;
+      }
 
-  .message {
-    font-size: 1rem;
-    padding: 15px;
-  }
+      .message {
+        font-size: 1rem;
+        padding: 15px;
+      }
 
-  .photos {
-    max-width: 90vw;
-    aspect-ratio: 3 / 4; 
-    height: auto;       
-  }
+      .photos {
+        max-width: 90vw;
+        aspect-ratio: 3 / 4;
+        height: auto;
+      }
 
-  iframe {
-    height: 200px;
-  }
-}
+      iframe {
+        height: 200px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -144,11 +139,11 @@
   </div>
 
   <div class="music-player">
-   <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cL4uhaQ58Rk?si=XkFQGhJD8LqWMhRT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cL4uhaQ58Rk?si=XkFQGhJD8LqWMhRT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 
   <script>
-    const startDate = new Date("2020-09-05");
+    const startDate = new Date("2020-09-05");  // Starting date for monthsary
 
     function updateCounter() {
       const now = new Date();
@@ -161,11 +156,17 @@
       lastMonthDate.setMonth(startDate.getMonth() + months);
       let days = Math.floor((now - lastMonthDate) / (1000 * 60 * 60 * 24));
 
-      const timeString = `${years} years, ${months} months, and ${days} days`;
+      // Calculate hours, minutes, and seconds
+      let timeDiff = now - lastMonthDate;
+      let hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      const timeString = `${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
       document.getElementById('time-counter').innerText = `Time together: ${timeString}`;
     }
 
-    setInterval(updateCounter, 1000 * 60 * 60 * 24);
+    setInterval(updateCounter, 1000);  // Update every second
     updateCounter();
 
     const images = document.querySelectorAll('.photo-slide');
