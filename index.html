@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 55th Monthsary!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom right, #fbeaff, #f0f8ff);
+      margin: 0;
+      padding: 30px 20px;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ff5e99;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px #ffd6ea;
+    }
+
+    .counter {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #555;
+      margin: 15px 0 30px;
+    }
+
+    .message {
+      background-color: #fff3e0;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #4e4e4e;
+      padding: 20px;
+      margin: 0 auto 30px;
+      max-width: 700px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      line-height: 1.6;
+    }
+
+.photos {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Narrower for vertical aspect */
+  aspect-ratio: 3 / 4; /* Vertical ratio */
+  margin: 30px auto;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.photos img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Zooms and crops sides */
+  object-position: center; /* Keeps subject centered */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-color: #fff;
+}
+
+
+.photos img.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+
+    .music-player {
+      margin: 40px auto;
+      max-width: 600px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .counter {
+        font-size: 1rem;
+      }
+
+      .message {
+        font-size: 1rem;
+        padding: 15px;
+      }
+
+      .photos {
+        height: 220px;
+      }
+
+      iframe {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy 55th Monthsary!</h1>
+
+  <div class="counter">
+    <p id="time-counter">Loading time...</p>
+  </div>
+
+  <div class="message">
+    <p>
+      Happy 55th monthsary aslum! Kalawig na sa aton! *Time flies* [weac].<br>
+      I just want to remind you na I love you so much langga! Basi kis'a abi mo di q u langga.<br>
+      May nabasa q na quote: <strong>"Don't look for someone to grow old together, but someone to stay a child with."</strong> Ambut qng saktu na basta amu na. Wala lang, ikaw lang aqn nadumduman hehe. <br>
+      I love you &mdash; tani namian ka sang aqn ubra. Goodluck sa exam bukas! &hearts;
+    </p>
+  </div>
+
+  <div class="photos">
+    <img src="https://i.ibb.co/svTqkszf/1.jpg" alt="Couple Photo 1" class="photo-slide">
+    <img src="https://i.ibb.co/Kj6W1Vrk/2.jpg" alt="Couple Photo 2" class="photo-slide">
+    <img src="https://i.ibb.co/FkT5Q56J/3.jpg" alt="Couple Photo 3" class="photo-slide">
+    <img src="https://i.ibb.co/TMpjbRqk/4.jpg" alt="Couple Photo 4" class="photo-slide">
+    <img src="https://i.ibb.co/dJ7MQjHn/5.jpg" alt="Couple Photo 5" class="photo-slide">
+    <img src="https://i.ibb.co/tGrvTgX/6.jpg" alt="Couple Photo 6" class="photo-slide">
+    <img src="https://i.ibb.co/j9Nt9dTc/7.jpg" alt="Couple Photo 7" class="photo-slide">
+  </div>
+
+  <div class="music-player">
+    <iframe src="https://www.youtube.com/embed/cL4uhaQ58Rk?autoplay=1&loop=1&playlist=cL4uhaQ58Rk" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    const startDate = new Date("2020-09-05");
+
+    function updateCounter() {
+      const now = new Date();
+      let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+      let years = Math.floor(totalMonths / 12);
+      let months = totalMonths % 12;
+
+      let lastMonthDate = new Date(startDate);
+      lastMonthDate.setFullYear(startDate.getFullYear() + years);
+      lastMonthDate.setMonth(startDate.getMonth() + months);
+      let days = Math.floor((now - lastMonthDate) / (1000 * 60 * 60 * 24));
+
+      const timeString = `${years} years, ${months} months, and ${days} days`;
+      document.getElementById('time-counter').innerText = `Time together: ${timeString}`;
+    }
+
+    setInterval(updateCounter, 1000 * 60 * 60 * 24);
+    updateCounter();
+
+    const images = document.querySelectorAll('.photo-slide');
+    let currentIndex = 0;
+
+    function showNextImage() {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add('active');
+    }
+
+    setInterval(showNextImage, 3000);
+    images[currentIndex].classList.add('active');
+  </script>
+
+</body>
+</html>
