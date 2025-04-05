@@ -90,28 +90,30 @@
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
+  @media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
 
-      .counter {
-        font-size: 1rem;
-      }
+  .counter {
+    font-size: 1rem;
+  }
 
-      .message {
-        font-size: 1rem;
-        padding: 15px;
-      }
+  .message {
+    font-size: 1rem;
+    padding: 15px;
+  }
 
-      .photos {
-        height: 220px;
-      }
+  .photos {
+    max-width: 90vw;
+    aspect-ratio: 3 / 4; /* 👈 keep vertical */
+    height: auto;        /* 👈 remove fixed height */
+  }
 
-      iframe {
-        height: 200px;
-      }
-    }
+  iframe {
+    height: 200px;
+  }
+}
   </style>
 </head>
 <body>
