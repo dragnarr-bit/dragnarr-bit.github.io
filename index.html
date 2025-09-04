@@ -14,7 +14,7 @@
         align-items: center;
         justify-content: center;
         padding: 1.5rem;
-        background: #ffe4ec; /* fallback color */
+        background: #ffe4ec; /* fallback */
       }
 
       canvas {
@@ -23,113 +23,48 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1; /* behind content */
+        z-index: -1;
       }
 
-      .slideshow {
-        position: relative;
-        width: 100%;
-        height: 450px;
-        overflow: hidden;
-        border-radius: 1rem;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-      .slide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-      }
-      .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .slide.active {
-        opacity: 1;
-      }
-      .caption {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        padding: 8px 16px;
-        border-radius: 1rem;
-        font-size: 1rem;
-        opacity: 0;
-        transition: opacity 1s;
-      }
-      .slide.active .caption {
-        opacity: 1;
-      }
-      .arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 2rem;
-        color: white;
-        background: rgba(0, 0, 0, 0.4);
-        border-radius: 50%;
-        padding: 6px 12px;
-        cursor: pointer;
-        user-select: none;
-      }
-      .arrow:hover {
-        background: rgba(0, 0, 0, 0.7);
-      }
-      .arrow.left {
-        left: 15px;
-      }
-      .arrow.right {
-        right: 15px;
-      }
-      .dots {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-      }
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-      .dot.active {
-        background: white;
-      }
-
-      /* Floating Play Button */
+      /* Heart-shaped button */
       #playButton {
         position: fixed;
         bottom: 20px;
         right: 20px;
+        width: 70px;
+        height: 70px;
         background: #ec4899;
         color: white;
-        padding: 15px 20px;
-        border-radius: 50%;
-        font-size: 1.5rem;
         cursor: pointer;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease, background 0.3s;
+        border: none;
+        outline: none;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        clip-path: path(
+          "M34.5,62 C12,42 0,26 0,16 C0,7.163 7.163,0 16,0 C22,0 28,4 34.5,10 C41,4 47,0 53,0 C61.837,0 69,7.163 69,16 C69,26 57,42 34.5,62 Z"
+        );
+        box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+        animation: pulseHeart 1.5s infinite;
         z-index: 10;
       }
-      #playButton:hover {
-        transform: scale(1.1);
-        background: #db2777;
+
+      @keyframes pulseHeart {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+        }
+        50% {
+          transform: scale(1.15);
+          box-shadow: 0 0 25px rgba(236, 72, 153, 0.9);
+        }
       }
 
       /* Speech bubble */
       #bubble {
         position: fixed;
-        bottom: 85px; /* above the button */
+        bottom: 95px; /* above heart */
         right: 20px;
         background: white;
         color: #ec4899;
@@ -153,41 +88,100 @@
       }
 
       @keyframes float {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-6px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
       }
 
       @keyframes pulse {
-        0%, 100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.6;
-        }
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
       }
+
+      /* Slideshow + Letter styling (same as before) */
+      .slideshow {
+        position: relative;
+        width: 100%;
+        height: 450px;
+        overflow: hidden;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .slide.active { opacity: 1; }
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 1rem;
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+      .slide.active .caption { opacity: 1; }
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: white;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 50%;
+        padding: 6px 12px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .arrow:hover { background: rgba(0, 0, 0, 0.7); }
+      .arrow.left { left: 15px; }
+      .arrow.right { right: 15px; }
+      .dots {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .dot.active { background: white; }
     </style>
   </head>
   <body>
-    <!-- Background music -->
+    <!-- Music -->
     <audio id="bgMusic" loop muted playsinline>
       <source src="music/love.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- Play Music Button + Bubble -->
+    <!-- Play Music Heart Button -->
     <button id="playButton">🎵</button>
     <div id="bubble">Click me 💕</div>
 
-    <!-- Canvas for Floating Hearts -->
+    <!-- Canvas Hearts -->
     <canvas id="heartCanvas"></canvas>
 
-    <!-- Responsive Grid -->
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl w-full"
-    >
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl w-full">
       <!-- Slideshow -->
       <div class="slideshow">
         <div class="slide active">
@@ -203,7 +197,7 @@
           <div class="caption">🥰</div>
         </div>
         <div class="slide">
-          <img src="img/4.jpg" alt="Memory 4" />
+          <img src="img/4.JPG" alt="Memory 4" />
           <div class="caption">❤️</div>
         </div>
         <div class="slide">
@@ -211,15 +205,13 @@
           <div class="caption">💛</div>
         </div>
 
-        <!-- Navigation Arrows -->
+        <!-- Nav -->
         <div class="arrow left" onclick="prevSlide()">&#10094;</div>
         <div class="arrow right" onclick="nextSlide()">&#10095;</div>
-
-        <!-- Dots -->
         <div class="dots"></div>
       </div>
 
-      <!-- Love Letter -->
+      <!-- Letter -->
       <section class="bg-white shadow-lg rounded-2xl p-8 text-center">
         <h2 class="text-3xl font-bold text-pink-600 mb-4">
           💌 A Love Letter For You
@@ -229,11 +221,10 @@
     </div>
 
     <script>
-      /* Slideshow JS */
+      /* Slideshow */
       let slides = document.querySelectorAll(".slide");
       let dotsContainer = document.querySelector(".dots");
-      let index = 0;
-      let slideInterval;
+      let index = 0, slideInterval;
 
       slides.forEach((_, i) => {
         let dot = document.createElement("div");
@@ -248,37 +239,18 @@
         slides.forEach((slide, idx) => {
           slide.classList.remove("active");
           dots[idx].classList.remove("active");
-          if (idx === i) {
-            slide.classList.add("active");
-            dots[idx].classList.add("active");
-          }
+          if (idx === i) { slide.classList.add("active"); dots[idx].classList.add("active"); }
         });
         index = i;
       }
-      function nextSlide() {
-        index = (index + 1) % slides.length;
-        showSlide(index);
-        resetInterval();
-      }
-      function prevSlide() {
-        index = (index - 1 + slides.length) % slides.length;
-        showSlide(index);
-        resetInterval();
-      }
-      function goToSlide(i) {
-        showSlide(i);
-        resetInterval();
-      }
-      function startSlideShow() {
-        slideInterval = setInterval(nextSlide, 3000);
-      }
-      function resetInterval() {
-        clearInterval(slideInterval);
-        startSlideShow();
-      }
+      function nextSlide() { index = (index + 1) % slides.length; showSlide(index); resetInterval(); }
+      function prevSlide() { index = (index - 1 + slides.length) % slides.length; showSlide(index); resetInterval(); }
+      function goToSlide(i) { showSlide(i); resetInterval(); }
+      function startSlideShow() { slideInterval = setInterval(nextSlide, 3000); }
+      function resetInterval() { clearInterval(slideInterval); startSlideShow(); }
       startSlideShow();
 
-      /* Typed.js Love Letter */
+      /* Typed.js */
       new Typed("#loveLetter", {
         strings: [
           "Happy anniversary langga! 🌸",
@@ -299,7 +271,6 @@
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
       let hearts = [];
 
       class Heart {
@@ -316,22 +287,8 @@
           ctx.fillStyle = "pink";
           ctx.beginPath();
           ctx.moveTo(this.x, this.y);
-          ctx.bezierCurveTo(
-            this.x - this.size / 2,
-            this.y - this.size / 2,
-            this.x - this.size,
-            this.y + this.size / 3,
-            this.x,
-            this.y + this.size
-          );
-          ctx.bezierCurveTo(
-            this.x + this.size,
-            this.y + this.size / 3,
-            this.x + this.size / 2,
-            this.y - this.size / 2,
-            this.x,
-            this.y
-          );
+          ctx.bezierCurveTo(this.x - this.size/2, this.y - this.size/2, this.x - this.size, this.y + this.size/3, this.x, this.y + this.size);
+          ctx.bezierCurveTo(this.x + this.size, this.y + this.size/3, this.x + this.size/2, this.y - this.size/2, this.x, this.y);
           ctx.fill();
           ctx.restore();
         }
@@ -344,30 +301,16 @@
           this.draw();
         }
       }
-
-      function initHearts() {
-        hearts = [];
-        for (let i = 0; i < 50; i++) {
-          hearts.push(new Heart());
-        }
-      }
-
+      function initHearts() { hearts = []; for (let i = 0; i < 50; i++) hearts.push(new Heart()); }
       function animateHearts() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         hearts.forEach((heart) => heart.update());
         requestAnimationFrame(animateHearts);
       }
+      initHearts(); animateHearts();
+      window.addEventListener("resize", () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initHearts(); });
 
-      initHearts();
-      animateHearts();
-
-      window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initHearts();
-      });
-
-      /* Play Music Button Logic */
+      /* Music Button */
       const playButton = document.getElementById("playButton");
       const bgMusic = document.getElementById("bgMusic");
       const bubble = document.getElementById("bubble");
@@ -375,8 +318,8 @@
       playButton.addEventListener("click", () => {
         bgMusic.muted = false;
         bgMusic.play();
-        playButton.style.display = "none"; 
-        bubble.style.display = "none"; // hide bubble too
+        playButton.style.display = "none";
+        bubble.style.display = "none";
       });
     </script>
   </body>
