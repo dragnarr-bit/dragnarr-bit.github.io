@@ -111,4 +111,226 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: #ec4899
+        background: #ec4899;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, background 0.3s;
+        z-index: 10;
+      }
+      #playButton:hover {
+        transform: scale(1.1);
+        background: #db2777;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background music -->
+    <audio id="bgMusic" loop muted playsinline>
+      <source src="music/love.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Play Music Button -->
+    <button id="playButton">🎵</button>
+
+    <!-- Canvas for Floating Hearts -->
+    <canvas id="heartCanvas"></canvas>
+
+    <!-- Responsive Grid -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl w-full"
+    >
+      <!-- Slideshow -->
+      <div class="slideshow">
+        <div class="slide active">
+          <img src="img/1.jpg" alt="Memory 1" />
+          <div class="caption">💕</div>
+        </div>
+        <div class="slide">
+          <img src="img/2.jpeg" alt="Memory 2" />
+          <div class="caption">💗</div>
+        </div>
+        <div class="slide">
+          <img src="img/3.jpg" alt="Memory 3" />
+          <div class="caption">🥰</div>
+        </div>
+        <div class="slide">
+          <img src="img/4.jpg" alt="Memory 4" />
+          <div class="caption">❤️</div>
+        </div>
+        <div class="slide">
+          <img src="img/5.jpg" alt="Memory 5" />
+          <div class="caption">💛</div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="arrow left" onclick="prevSlide()">&#10094;</div>
+        <div class="arrow right" onclick="nextSlide()">&#10095;</div>
+
+        <!-- Dots -->
+        <div class="dots"></div>
+      </div>
+
+      <!-- Love Letter -->
+      <section class="bg-white shadow-lg rounded-2xl p-8 text-center">
+        <h2 class="text-3xl font-bold text-pink-600 mb-4">
+          💌 A Love Letter For You
+        </h2>
+        <p id="loveLetter" class="text-lg text-gray-700 leading-relaxed"></p>
+      </section>
+    </div>
+
+    <script>
+      /* Slideshow JS */
+      let slides = document.querySelectorAll(".slide");
+      let dotsContainer = document.querySelector(".dots");
+      let index = 0;
+      let slideInterval;
+
+      slides.forEach((_, i) => {
+        let dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+      let dots = document.querySelectorAll(".dot");
+
+      function showSlide(i) {
+        slides.forEach((slide, idx) => {
+          slide.classList.remove("active");
+          dots[idx].classList.remove("active");
+          if (idx === i) {
+            slide.classList.add("active");
+            dots[idx].classList.add("active");
+          }
+        });
+        index = i;
+      }
+      function nextSlide() {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+        resetInterval();
+      }
+      function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+        resetInterval();
+      }
+      function goToSlide(i) {
+        showSlide(i);
+        resetInterval();
+      }
+      function startSlideShow() {
+        slideInterval = setInterval(nextSlide, 3000);
+      }
+      function resetInterval() {
+        clearInterval(slideInterval);
+        startSlideShow();
+      }
+      startSlideShow();
+
+      /* Typed.js Love Letter */
+      new Typed("#loveLetter", {
+        strings: [
+          "Happy anniversary langga! 🌸",
+          "You are my happiness, my safe place, and my forever. 💖",
+          "My aslum, my ml buddy, and my chess buddy. 💖",
+          "Thank you for staying with me for better or for worse. ❤️",
+          "I love you always miskin ano matabo hehe. 😚",
+        ],
+        typeSpeed: 40,
+        backSpeed: 25,
+        startDelay: 500,
+        backDelay: 1500,
+        loop: true,
+      });
+
+      /* Floating Hearts Background */
+      const canvas = document.getElementById("heartCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let hearts = [];
+
+      class Heart {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height + Math.random() * 100;
+          this.size = Math.random() * 20 + 10;
+          this.speed = Math.random() * 1 + 0.5;
+          this.opacity = Math.random() * 0.5 + 0.5;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.opacity;
+          ctx.fillStyle = "pink";
+          ctx.beginPath();
+          ctx.moveTo(this.x, this.y);
+          ctx.bezierCurveTo(
+            this.x - this.size / 2,
+            this.y - this.size / 2,
+            this.x - this.size,
+            this.y + this.size / 3,
+            this.x,
+            this.y + this.size
+          );
+          ctx.bezierCurveTo(
+            this.x + this.size,
+            this.y + this.size / 3,
+            this.x + this.size / 2,
+            this.y - this.size / 2,
+            this.x,
+            this.y
+          );
+          ctx.fill();
+          ctx.restore();
+        }
+        update() {
+          this.y -= this.speed;
+          if (this.y < -20) {
+            this.y = canvas.height + Math.random() * 100;
+            this.x = Math.random() * canvas.width;
+          }
+          this.draw();
+        }
+      }
+
+      function initHearts() {
+        hearts = [];
+        for (let i = 0; i < 50; i++) {
+          hearts.push(new Heart());
+        }
+      }
+
+      function animateHearts() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hearts.forEach((heart) => heart.update());
+        requestAnimationFrame(animateHearts);
+      }
+
+      initHearts();
+      animateHearts();
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initHearts();
+      });
+
+      /* Play Music Button Logic */
+      const playButton = document.getElementById("playButton");
+      const bgMusic = document.getElementById("bgMusic");
+
+      playButton.addEventListener("click", () => {
+        bgMusic.muted = false;
+        bgMusic.play();
+        playButton.style.display = "none"; // hide button after click
+      });
+    </script>
+  </body>
+</html>
