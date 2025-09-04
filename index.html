@@ -125,6 +125,50 @@
         transform: scale(1.1);
         background: #db2777;
       }
+
+      /* Speech bubble */
+      #bubble {
+        position: fixed;
+        bottom: 85px; /* above the button */
+        right: 20px;
+        background: white;
+        color: #ec4899;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        animation: float 2s ease-in-out infinite, pulse 1.5s infinite;
+        z-index: 10;
+      }
+
+      #bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        right: 25px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
     </style>
   </head>
   <body>
@@ -133,8 +177,9 @@
       <source src="music/love.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- Play Music Button -->
+    <!-- Play Music Button + Bubble -->
     <button id="playButton">🎵</button>
+    <div id="bubble">Click me 💕</div>
 
     <!-- Canvas for Floating Hearts -->
     <canvas id="heartCanvas"></canvas>
@@ -325,11 +370,13 @@
       /* Play Music Button Logic */
       const playButton = document.getElementById("playButton");
       const bgMusic = document.getElementById("bgMusic");
+      const bubble = document.getElementById("bubble");
 
       playButton.addEventListener("click", () => {
         bgMusic.muted = false;
         bgMusic.play();
-        playButton.style.display = "none"; // hide button after click
+        playButton.style.display = "none"; 
+        bubble.style.display = "none"; // hide bubble too
       });
     </script>
   </body>
