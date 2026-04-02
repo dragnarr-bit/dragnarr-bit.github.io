@@ -1,154 +1,146 @@
 :root {
-  --bg: #f2f5f9;
-  --card: rgba(255, 255, 255, 0.7);
-  --text: #1a1a1a;
-  --subtext: #666;
-  --primary: #4f7cff;
-  --secondary: #e9ecf5;
-  --shadow: rgba(0,0,0,0.1);
-  --glass: blur(12px);
-}
-
-body.dark {
   --bg: #0f1115;
-  --card: rgba(30, 30, 30, 0.6);
+  --card: rgba(255, 255, 255, 0.05);
   --text: #ffffff;
-  --subtext: #aaa;
-  --primary: #6ea8fe;
-  --secondary: #2a2a2a;
-  --shadow: rgba(0,0,0,0.4);
+  --subtext: #b0b0b0;
+  --primary: #4f7cff;
+  --accent: #ff4d4d;
+  --glass: blur(20px);
 }
 
-/* Base */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
+  background: radial-gradient(circle at top, #1a1d25, #0f1115);
   color: var(--text);
   display: flex;
   justify-content: center;
 }
 
-/* App Container */
+/* App */
 .app {
-  width: 100%;
   max-width: 420px;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Top Bar */
+/* Header */
 .topbar {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  padding: 18px;
   font-weight: 600;
-}
-
-.toggle {
-  cursor: pointer;
-  font-size: 18px;
+  opacity: 0.9;
 }
 
 /* Card */
 .card {
-  margin: 10px;
-  padding: 16px;
-  border-radius: 24px;
+  margin: 12px;
+  border-radius: 28px;
+  overflow: hidden;
   backdrop-filter: var(--glass);
   background: var(--card);
-  box-shadow: 0 10px 30px var(--shadow);
-  animation: fadeIn 0.6s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  animation: fadeUp 0.6s ease;
 }
 
-/* Image */
+/* IMAGE HERO */
 .image-wrapper {
   position: relative;
 }
 
 .image-wrapper img {
   width: 100%;
-  border-radius: 18px;
+  height: 260px;
+  object-fit: cover;
 }
 
-/* LOST Badge */
+/* Gradient overlay (THIS makes it premium) */
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
+}
+
+/* LOST badge */
 .badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #ff4d4d;
-  color: white;
+  top: 14px;
+  left: 14px;
+  background: var(--accent);
+  padding: 6px 12px;
+  border-radius: 999px;
   font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 20px;
   font-weight: bold;
+  z-index: 2;
 }
 
-/* Text */
-h1 {
-  margin: 12px 0 4px;
-  font-size: 24px;
+/* Content */
+.card h1 {
+  margin: 16px 16px 4px;
+  font-size: 26px;
 }
 
 .info {
+  margin: 0 16px;
   color: var(--subtext);
   font-size: 14px;
 }
 
-/* Divider */
-.divider {
-  height: 1px;
-  background: rgba(0,0,0,0.08);
-  margin: 16px 0;
-}
-
 /* Contact */
-.owner {
-  font-size: 14px;
-  margin-bottom: 10px;
+.contact {
+  padding: 16px;
 }
 
-/* Buttons */
+.owner {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-bottom: 12px;
+}
+
+/* Buttons (REAL APP STYLE) */
 .btn {
   display: block;
+  padding: 16px;
+  border-radius: 16px;
   text-align: center;
-  padding: 14px;
-  border-radius: 14px;
-  margin-top: 10px;
-  text-decoration: none;
   font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
   transition: 0.2s;
 }
 
 .btn.primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, #4f7cff, #6ea8fe);
   color: white;
 }
 
 .btn.secondary {
-  background: var(--secondary);
-  color: var(--text);
+  background: rgba(255,255,255,0.08);
+  color: white;
 }
 
-.btn:hover {
-  transform: scale(1.03);
+.btn:active {
+  transform: scale(0.96);
 }
 
 /* Footer */
 .footer {
-  margin-top: auto;
   text-align: center;
-  padding: 12px;
   font-size: 12px;
   color: var(--subtext);
+  margin-top: auto;
+  padding: 14px;
 }
 
 /* Animation */
-@keyframes fadeIn {
+@keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
