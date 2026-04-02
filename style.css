@@ -1,28 +1,157 @@
+:root {
+  --bg: #f2f5f9;
+  --card: rgba(255, 255, 255, 0.7);
+  --text: #1a1a1a;
+  --subtext: #666;
+  --primary: #4f7cff;
+  --secondary: #e9ecf5;
+  --shadow: rgba(0,0,0,0.1);
+  --glass: blur(12px);
+}
+
+body.dark {
+  --bg: #0f1115;
+  --card: rgba(30, 30, 30, 0.6);
+  --text: #ffffff;
+  --subtext: #aaa;
+  --primary: #6ea8fe;
+  --secondary: #2a2a2a;
+  --shadow: rgba(0,0,0,0.4);
+}
+
+/* Base */
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   justify-content: center;
-  padding: 20px;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  max-width: 350px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-img {
+/* App Container */
+.app {
   width: 100%;
-  border-radius: 10px;
+  max-width: 420px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.contact {
-  margin-top: 15px;
-  background: #eef;
-  padding: 10px;
-  border-radius: 10px;
+/* Top Bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  font-weight: 600;
+}
+
+.toggle {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Card */
+.card {
+  margin: 10px;
+  padding: 16px;
+  border-radius: 24px;
+  backdrop-filter: var(--glass);
+  background: var(--card);
+  box-shadow: 0 10px 30px var(--shadow);
+  animation: fadeIn 0.6s ease;
+}
+
+/* Image */
+.image-wrapper {
+  position: relative;
+}
+
+.image-wrapper img {
+  width: 100%;
+  border-radius: 18px;
+}
+
+/* LOST Badge */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Text */
+h1 {
+  margin: 12px 0 4px;
+  font-size: 24px;
+}
+
+.info {
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 16px 0;
+}
+
+/* Contact */
+.owner {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.secondary {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 12px;
+  font-size: 12px;
+  color: var(--subtext);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
